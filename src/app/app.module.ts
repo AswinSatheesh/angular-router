@@ -28,6 +28,7 @@ const routes : Routes = [
   {path: 'About',component: AboutComponent},
   {path: 'Courses',component: CoursesComponent},
   {path: 'Contact',component: ContactComponent},
+  {path: 'Courses/Course/:id',component: CourseDetailComponent},
   {path: '**',component: NotFoundComponent}
   // {
   //   path: 'About', Component: AboutComponent
