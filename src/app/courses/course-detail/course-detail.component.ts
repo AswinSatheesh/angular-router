@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/Models/course';
 import { CourseService } from 'src/app/Services/course.service';
@@ -8,20 +8,35 @@ import { CourseService } from 'src/app/Services/course.service';
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css']
 })
-export class CourseDetailComponent{
+export class CourseDetailComponent implements OnInit,OnDestroy{
   selectedCourse! : Course;
   courseId!: number;
 
   courseService : CourseService = inject(CourseService);
   activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  paramMapObs : any;
 
   ngOnInit(){
     // this.courseId = this.activeRoute.snapshot.params['id'];
-    this.courseId = +(this.activeRoute.snapshot.paramMap.get('id') ?? 0);
-    // console.log(this.courseId);
-    this.selectedCourse = this.courseService.courses.find(course => course.id == this.courseId)!;
-    console.log(this.selectedCourse);
+    // this.courseId = +(this.activeRoute.snapshot.paramMap.get('id') ?? 0);
+    //observalble - paramMap
+    // this.activeRoute.paramMap.subscribe((data)=>{
+    //   this.courseId = +(data.get('id') || 0);
+    //   this.selectedCourse = this.courseService.courses.find(course => course.id == this.courseId)!;
+
+    // })
+
+    //observalble - param
     
-    
+    this.paramMapObs = this.activeRoute.params.subscribe((data)=>{
+      this.courseId = +data['id'];
+      this.selectedCourse = this.courseService.courses.find(course => course.id == this.courseId)!;
+
+    })
   }
+
+  ngOnDestroy(){
+    this.paramMapObs.unsubcribe();
+  }
+
 }
