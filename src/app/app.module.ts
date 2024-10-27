@@ -26,9 +26,12 @@ const routes : Routes = [
   {path: '',component: HomeComponent},
   {path: 'Home',component: HomeComponent},
   {path: 'About',component: AboutComponent},
-  {path: 'Courses',component: CoursesComponent},
   {path: 'Contact',component: ContactComponent},
-  {path: 'Courses/Course/:id',component: CourseDetailComponent},
+  {path: 'Courses',component: CoursesComponent},
+  // {path: 'Courses/Course/:id',component: CourseDetailComponent}, 
+  {path : 'Courses', children: [
+    {path: 'Course/:id',component: CourseDetailComponent}
+  ]},
   {path: '**',component: NotFoundComponent}
   // {
   //   path: 'About', Component: AboutComponent
