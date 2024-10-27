@@ -20,23 +20,9 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule } from '@angular/forms';
+import { RoutingModule } from './routing.module';
 
-const routes : Routes = [
-  // {path: '',redirectTo: 'Home', pathMatch: 'full'}, //redirecting
-  {path: '',component: HomeComponent},
-  {path: 'Home',component: HomeComponent},
-  {path: 'About',component: AboutComponent},
-  {path: 'Contact',component: ContactComponent},
-  {path: 'Courses',component: CoursesComponent},
-  // {path: 'Courses/Course/:id',component: CourseDetailComponent}, 
-  {path : 'Courses', children: [
-    {path: 'Course/:id',component: CourseDetailComponent}
-  ]},
-  {path: '**',component: NotFoundComponent}
-  // {
-  //   path: 'About', Component: AboutComponent
-  // },
-]
+
 
 
 
@@ -62,8 +48,8 @@ const routes : Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(routes)
-  ],
+    RoutingModule
+    ],
   providers: [ServicesService, CourseService],
   bootstrap: [AppComponent]
 })
