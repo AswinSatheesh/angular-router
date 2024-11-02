@@ -1,18 +1,29 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   @ViewChild('username') username!: ElementRef;
   @ViewChild('password') password!: ElementRef;
   authService : AuthService = inject(AuthService);
   router : Router = inject(Router);
+  activeRoute : ActivatedRoute = inject(ActivatedRoute);
+
+  ngOnInit(){
+    this.activeRoute.queryParamMap.subscribe((queries)=>{
+      const logout = Boolean(queries.get('logout'));
+      if(logout){
+        this.authService.logout();
+        alert('You have now loggedOut!!. isLogged = ' + this.authService.isLogged);
+      }
+    })
+  }
   OnLoginClicked(){
     // console.log(this.username.nativeElement.value);
     // console.log(this.password.nativeElement.value);

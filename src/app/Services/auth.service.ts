@@ -13,7 +13,7 @@ export class AuthService{
             usr.username === username && usr.password === password
         );
         // Without curly braces: The function returns the expression automatically.
-        // With curly braces: You need an explicit return statement for the function to return anything.
+        // With curly braces: You need an explicit return statement for the function t  o return anything.
 
         if(user === undefined){
             this.isLogged = false;
